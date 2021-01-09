@@ -1,0 +1,150 @@
+
+
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+    <div class="main">
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="box-element">
+                    <a class="btn btn-outline-dark" href="{% url 'home' %}"> &#8592 Continue Shopping</a>
+                    <br>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <th><h5>Items: <strong>{{ order.get_cart_items }}</strong></h5></th>
+                            <th><h5>Total: <strong>${{ order.get_cart_total|floatformat:2 }}</strong></h5></th>
+                            <a style="float: right; margin: 5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+
+
+                <div class="box-element">
+                    <div class="cart-row">
+                        <div style="flex: 2"></div>
+                        <div style="flex: 2"><strong>Item</strong></div>
+                        <div style="flex: 1"><strong>Price</strong></div>
+                        <div style="flex: 1"><strong>Quantity</strong></div>
+                        <div style="flex: 1"><strong>Total</strong></div>
+
+                    </div>
+                    {% for item in items %}
+                    <div class="cart-row">
+                        <div style="flex: 2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+                        <div style="flex: 2"><p>{{ item.product.name }}</p></div>
+                        <div style="flex: 1">${{ item.product.price|floatformat:2  }}</div>
+                        <div style="flex: 1">
+                            <p class="quantity">{{ item.quantity }} </p>
+                            <div class="quantity">
+                               <a href="{% url 'add_item' id=item.product.id %}"> <i class="fas fa-plus chg-quantity "></i></a>
+                            </div>
+                            <div class="quantity">
+                              <a href="{% url 'remove_item' id=item.product.id %}"> <i class="fas fa-minus chg-quantity "> </i></a>
+                            </div>
+                            <div class="quantity">
+                               <a href="{% url 'removes_item' id=item.product.id %}"> <i class="fas fa-trash-alt chg-quantity"></i></a>
+
+                            </div>
+
+                        </div>
+                        <div style="flex: 1">${{ item.get_total }}</div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="main">
+        <section class="pt-5 pb-5">
+            <div class="container">
+                <div class="row w-100">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
+                        <p class="mb-5 text-center">{# { order.get_cart_items }}  #} items in your cart</p>
+                        <table id="shoppingCart" class="table table-condensed table-responsive">
+                            <thead>
+                            <tr>
+                                <th style="width:60%">Product</th>
+                                <th style="width:10%">Price</th>
+                                <th style="width:10%">Quantity</th>
+                                <th style="width:10%">Total</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {#% for item in items %#}
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-md-3 text-left">
+                                            <img src="{#%static 'img/placeholder.png' %#}" alt=""
+                                                 class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                        </div>
+                                        <div class="col-md-9 text-left mt-sm-2">
+                                            <h4>{# { item.product.name }} #}Name</h4>
+                                            <p class="font-weight-light">Gobels'</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price">$30{# { item.product.price|floatformat:2 }}  #}</td>
+                                <td data-th="Quantity">
+                                    <p>1{#tem.quantity }} #}</p>
+                                </td>
+                                <td data-th="Total">
+                                    <p>Total</p>
+                                </td>
+
+                                <td class="actions" data-th="">
+                                    <div class="text-right">
+                                        <button data-productid="{#tem.quantity }} #}" data-action="add"
+                                                class="btn btn-white border-secondary bg-white btn-md mb-2 update-card">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                        <button data-productid="{#tem.quantity }} #}" data-action="remove"
+                                                class="btn btn-white border-secondary bg-white btn-md mb-2 update-card">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button data-productid="{#tem.quantity }} #}" data-action="remove-all"
+                                                class="btn btn-white border-secondary bg-white btn-md mb-2 update-card">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            {#% endfor %#}
+
+                            </tbody>
+                        </table>
+                        <div class="float-right text-right">
+                            <h4>Subtotal:</h4>
+                            <h1>${#tem.quantity }} #}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 d-flex align-items-center">
+                    <div class="col-sm-6 order-md-2 text-right">
+                        <a href="{#% url 'checkout' %#}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                        <a href="{#% url 'home' %#}">
+                            <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    -->
+
+
+{% include 'components/footer.html' %}
+{% endblock content %}

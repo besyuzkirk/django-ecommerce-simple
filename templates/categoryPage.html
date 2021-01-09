@@ -1,0 +1,78 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'components/category-bar.html' %}
+
+
+    <div class="main mb-5">
+        <div class="container">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            You must log
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="{% url 'login' %}" type="button" class="btn btn-primary">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-lg-4 mt-4 ">
+                        <img class="thumbnail" src="{{ product.imageURL }}">
+                        <div class="box-element product">
+                            <h6><strong>{{ product.name }}</strong></h6>
+                            <hr>
+                            <a href="{% url 'add_item' id=product.id %}"
+                               class="btn btn-outline-secondary add-btn add-button">Add to Cart</a>
+                            <a class="btn btn-outline-success" href="{% url 'detail' id=product.id %}">Detail</a>
+                            <h4 style="display: inline-block; float: right;">${{ product.price|floatformat:2 }}</h4>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    {% include 'components/footer.html' %}
+
+    <script type="text/javascript">
+
+        var False = 'False'
+
+
+        if ({{ control }} == 'False')
+        {
+            console.log('burayim')
+            var buttons = document.querySelectorAll(".add-button")
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].removeAttribute("href");
+                buttons[i].setAttribute("data-toggle", "modal");
+                buttons[i].setAttribute("data-target", "#exampleModal");
+            }
+
+
+        }
+
+
+    </script>
+{% endblock %}

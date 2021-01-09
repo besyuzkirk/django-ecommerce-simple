@@ -1,0 +1,108 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Adding
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Page Content -->
+    <div class="clear"></div>
+    <div class="container mt-5 main">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        You must log
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="{% url 'login' %}" type="button" class="btn btn-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Item Heading -->
+        <h1 class="my-4">{{ product.name }}
+            <small>{{ product.category.name }}</small>
+        </h1>
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-fluid" src="{{ product.detailImageURL}}" alt="">
+            </div>
+
+            <div class="col-md-4 text-center">
+                <h3 class="my-3">Product Description</h3>
+                <p>{{ product.description }}</p>
+                <h3 class="my-3">Food Content</h3>
+                <ul class="list-unstyled">
+                    {% for i in contents %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+                <a id="add-button" href="{% url 'add_item' id=product.id %}" class="btn btn-secondary ">Add</a>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+    {% include 'components/footer.html' %}
+    <script type="text/javascript">
+
+        var False = 'False'
+        const button = document.getElementById("add-button");
+
+
+
+        if({{ control }} == 'False') {
+            console.log('here')
+
+
+            button.removeAttribute("href");
+            button.setAttribute("data-toggle", "modal");
+            button.setAttribute("data-target", "#exampleModal");
+        }
+
+
+
+
+
+
+
+    </script>
+{% endblock %}
