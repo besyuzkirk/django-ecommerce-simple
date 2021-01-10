@@ -11,7 +11,7 @@ from .models import *
 def homePage(request):
     control = request.user.is_authenticated
 
-    if request.user.is_authenticated:
+    if control:
         customer = request.user.customer
         user = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -184,7 +184,7 @@ def processOrder(request):
 def categoryList(request, id):
     control = request.user.is_authenticated
 
-    if request.user.is_authenticated:
+    if control:
         customer = request.user.customer
         user = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
