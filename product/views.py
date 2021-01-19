@@ -1,10 +1,23 @@
 from django.contrib.auth.decorators import login_required
-import json
+import iyzipay
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
 import datetime
 from .forms import ShippingAddress
 from .models import *
+from payment import urls
+
+
+api_key = 'sandbox-IOUkLip1LwPwAX0IZhTd10G31xg9f53Z'
+secret_key = 'sandbox-uI0rttXtNUYyZlpmZN6WS2PSvnhSmqGV'
+base_url = ' https://sandbox-api.iyzipay.com'
+
+options = {
+    'api-key':api_key,
+    'secret-key':secret_key,
+    'base-url':base_url,
+}
+
+libToken = list()
 
 
 # Create your views here.
@@ -127,8 +140,8 @@ def add_item(request, id):
     orderItem.quantity = orderItem.quantity + 1
     orderItem.save()
 
+    # her zaman bi onceki url ye yonlendirmesi icin
     url = request.META.get('HTTP_REFERER')
-
     return redirect(url)
 
 
@@ -178,7 +191,7 @@ def processOrder(request):
             ShippingAdress.objects.create(customer=customer, order=order, address=address, city=city, state=state,
                                           zipcode=zipcode, email=email)
 
-    return redirect(checkoutPage)
+    return redirect('payment')
 
 
 def categoryList(request, id):

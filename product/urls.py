@@ -11,4 +11,5 @@ urlpatterns = [
     path('sil<id>/', views.remove_items, name='removes_item'),
     path('process_order/', views.processOrder, name='processOrder'),
     path('filter<id>/', views.categoryList , name="categoryList"),
+
 ]
