@@ -1,0 +1,3 @@
+Pillow
+django-bootstrap-form
+iyzipay
